@@ -136,13 +136,13 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
     
     @objc private func keyboardWillShow(_ notification: Notification) {
         if bottomTextField.isEditing {
-            view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
         if bottomTextField.isEditing {
-            view.frame.origin.y += getKeyboardHeight(notification)
+            view.frame.origin.y = 0
         }
     }
 
