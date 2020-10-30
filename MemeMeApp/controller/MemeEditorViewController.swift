@@ -131,8 +131,7 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
     }
 
     private func unsubscribeFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
