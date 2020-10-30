@@ -27,6 +27,8 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
         NSAttributedString.Key.strokeWidth:  -2,
     ]
     
+    var savedMemes: [Meme] = []
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
@@ -82,6 +84,12 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
         
         
         let activityController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
+        activityController.completionWithItemsHandler = {
+            [weak self] (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void  in
+            if completed && error == nil {
+                self?.savedMemes.append(meme)
+            }
+        }
         present(activityController, animated: true, completion: nil)
     }
     
