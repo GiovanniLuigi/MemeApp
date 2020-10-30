@@ -17,12 +17,7 @@ class FontSelectionViewController: UIViewController {
     
     var selectedFont: String?
     var delegate: FontSelectionDelegate?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    
+
     @IBAction func didSelectFont(_ sender: UIButton) {
         self.selectedFont = sender.titleLabel?.font.familyName
         if let delegate = self.delegate, let selectedFont = self.selectedFont {
