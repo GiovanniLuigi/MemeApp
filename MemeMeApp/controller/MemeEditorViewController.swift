@@ -27,8 +27,6 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
         NSAttributedString.Key.strokeWidth:  -2,
     ]
     
-    var savedMemes: [Meme] = []
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
@@ -43,7 +41,6 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
         setupTextFields(textFields: [topTextField, bottomTextField])
         bottomToolBar.layer.cornerRadius = 20;
         bottomToolBar.clipsToBounds  =  true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +71,7 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
         memeImageView.image = nil
+        dismiss()
     }
     
     @IBAction func didTapShareButton(_ sender: Any) {
@@ -87,13 +85,19 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
         activityController.completionWithItemsHandler = {
             [weak self] (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void  in
             if completed && error == nil {
-                self?.savedMemes.append(meme)
+                self?.save(meme: meme)
+                self?.dismiss()
             }
         }
         present(activityController, animated: true, completion: nil)
     }
     
     // MARK: - Private funcs
+    
+    private func save(meme: Meme) {
+        Data.shared.add(meme: meme)
+    }
+    
     private func generateMemedImage() -> UIImage {
         UIGraphicsBeginImageContext(self.memeContainer.frame.size)
         memeContainer.drawHierarchy(in: self.memeContainer.bounds, afterScreenUpdates: false)
