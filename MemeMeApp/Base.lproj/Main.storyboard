@@ -325,7 +325,6 @@
                                     <barButtonItem title="Edit" image="pencil.tip" catalog="system" id="Dt5-ei-baj">
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <action selector="didTapEditButton:" destination="BYZ-38-t0r" id="TcO-6g-tDH"/>
                                             <segue destination="kVS-MI-s8J" kind="presentation" identifier="fontSelection" id="MuA-PO-622"/>
                                         </connections>
                                     </barButtonItem>

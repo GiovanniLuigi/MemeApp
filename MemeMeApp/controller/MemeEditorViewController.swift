@@ -64,9 +64,6 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
         pickImage(source: .photoLibrary)
     }
     
-    @IBAction func didTapEditButton(_ sender: Any) {
-    }
-    
     @IBAction func didTapCancelButton(_ sender: Any) {
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
