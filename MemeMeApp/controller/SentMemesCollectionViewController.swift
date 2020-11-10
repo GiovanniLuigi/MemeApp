@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SentMemesCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, DataDelegate, UICollectionViewDelegateFlowLayout {
+class SentMemesCollectionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var memes: [Meme] {
@@ -19,7 +19,9 @@ class SentMemesCollectionViewController: UIViewController, UICollectionViewDataS
         super.viewDidLoad()
         Data.shared.delegate = self
     }
-    
+}
+
+extension SentMemesCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return memes.count
     }
@@ -33,23 +35,29 @@ class SentMemesCollectionViewController: UIViewController, UICollectionViewDataS
         }
         return UICollectionViewCell()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.size.width - 12 * 3) / 3
-        return CGSize(width: width, height: width)
-    }
-    
+}
+
+extension SentMemesCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailViewController {
             vc.selectedImage = memes[indexPath.row].memedImage
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
+}
+
+extension SentMemesCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.frame.size.width - 12 * 3) / 3
+        return CGSize(width: width, height: width)
+    }
+}
+
+
+extension SentMemesCollectionViewController: DataDelegate {
     func dataUpdated() {
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
         }
     }
-    
 }
