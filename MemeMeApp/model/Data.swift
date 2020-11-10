@@ -23,9 +23,6 @@ class Data {
     
     func add(meme: Meme) {
         memes.append(meme)
-        memes.append(meme)
-        memes.append(meme)
-        memes.append(meme)
         delegate?.dataUpdated()
     }
     
