@@ -71,15 +71,13 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
         memeImageView.image = nil
+        save(meme: getCurrentMeme())
         dismiss()
     }
     
     @IBAction func didTapShareButton(_ sender: Any) {
-        let topText = topTextField.text ?? String()
-        let bottomText = bottomTextField.text ?? String()
         
-        let meme = Meme(topText:  topText, bottomText: bottomText, originalImage: memeImageView.image, memedImage: generateMemedImage())
-        
+        let meme = getCurrentMeme()
         
         let activityController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
         activityController.completionWithItemsHandler = {
@@ -93,6 +91,13 @@ UINavigationControllerDelegate, UITextFieldDelegate, FontSelectionDelegate {
     }
     
     // MARK: - Private funcs
+    private func getCurrentMeme() -> Meme {
+        let topText = topTextField.text ?? String()
+        let bottomText = bottomTextField.text ?? String()
+        
+        let meme = Meme(topText:  topText, bottomText: bottomText, originalImage: memeImageView.image, memedImage: generateMemedImage())
+        return meme
+    }
     
     private func save(meme: Meme) {
         Data.shared.add(meme: meme)
